@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { type Dispatch, type SetStateAction } from "react";
 
+import { FinalDraw } from "./components/Music";
+
 const resetTrigger = (
   setTrigger: Dispatch<SetStateAction<number | undefined>>
 ) => {
@@ -28,16 +30,23 @@ function App() {
 
   return (
     <div className="w-full min-h-screen bg-jet">
-      <h1 className="text-2xl text-whitesmoke">
-        {/* <div>{trigger}</div> */}
-        <div>{res != undefined ? String(res) : ""}</div>
-        <button
-          className="bg-living-coral hover:cursor-pointer hover:opacity-60"
-          onClick={() => pullTrigger()}
-        >
-          Shoot
-        </button>
-      </h1>
+      <div className="w-full h-screen flex justify-center items-center">
+        <div className="w-[22rem] bg-whitesmoke text-jet text-center p-4 rounded-xl flex flex-col gap-4">
+          <div>
+            {res != undefined ? (
+              <FinalDraw state={res} />
+            ) : (
+              <h1 className="font-semibold text-2xl py-4">Click to start</h1>
+            )}
+          </div>
+          <button
+            className="text-whitesmoke bg-living-coral text-2xl p-4 rounded hover:cursor-pointer hover:rounded-xl hover:opacity-60"
+            onClick={() => pullTrigger()}
+          >
+            Shoot
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
