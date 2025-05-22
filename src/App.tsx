@@ -12,6 +12,10 @@ const resetTrigger = (
 function App() {
   const [trigger, setTrigger] = useState<number>();
   const [res, setRes] = useState<boolean>();
+  const [count, setCount] = useState<number>(0);
+  const [list, setList] = useState<number[]>([0, 1, 2, 3, 4, 5]);
+
+  const basedList = [0, 1, 2, 3, 4, 5];
 
   useEffect(() => {
     if (trigger == undefined) {
@@ -20,12 +24,27 @@ function App() {
   }, []);
 
   const pullTrigger = () => {
-    let resp = Math.floor(Math.random() * 6);
-    console.log(resp);
-    console.log(trigger);
-    console.log(resp != trigger);
+    if (res == false) {
+      resetTrigger(setTrigger);
+      setList(basedList);
+      setRes(undefined);
+      console.log(`new trigger: ${trigger}`);
+    } else {
+      if (list.length == 0) {
+        setList(basedList);
+      }
 
-    setRes(resp != trigger);
+      let rand = Math.floor(Math.random() * list.length);
+      let resp = list[rand];
+      console.log(list);
+      console.log(resp);
+
+      let filtered = list.filter((x) => x !== resp);
+      setList(filtered);
+
+      setCount(count + 1);
+      setRes(resp != trigger);
+    }
   };
 
   return (
@@ -34,16 +53,16 @@ function App() {
         <div className="w-[22rem] bg-whitesmoke text-jet text-center p-4 rounded-xl flex flex-col gap-4">
           <div>
             {res != undefined ? (
-              <FinalDraw state={res} />
+              <FinalDraw state={res} count={count} />
             ) : (
-              <h1 className="font-semibold text-2xl py-4">Click to start</h1>
+              <h1 className="font-semibold text-3xl py-4">Click to start</h1>
             )}
           </div>
           <button
             className="text-whitesmoke bg-living-coral text-2xl p-4 rounded hover:cursor-pointer hover:rounded-xl hover:opacity-60"
             onClick={() => pullTrigger()}
           >
-            Shoot
+            {res != undefined ? (res ? "Shoot!!" : "Retry?") : "Shoot!!"}
           </button>
         </div>
       </div>

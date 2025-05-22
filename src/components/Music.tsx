@@ -14,17 +14,18 @@ const songPayload = [
 
 interface childInterface {
   state: boolean;
+  count: number;
 }
 
 export const FinalDraw = (child: childInterface) => {
   let i = child.state ? 0 : 1;
 
   return (
-    <div className="pb-4">
-      <div className="py-4">
+    <div className="py-2">
+      <div className="pb-4">
         <a
           href={`https://youtu.be/${songPayload[i]?.embedLink}`}
-          className="text-2xl underline hover:opacity-60 hover:no-underline"
+          className="text-2xl underline font-semibold hover:opacity-60 hover:no-underline"
         >
           {songPayload[i]?.name}
         </a>
@@ -38,6 +39,9 @@ export const FinalDraw = (child: childInterface) => {
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
       ></iframe>
+      <h1 className="pt-4">
+        Current count: <span className="font-semibold">{child.count}</span>
+      </h1>
     </div>
   );
 };
