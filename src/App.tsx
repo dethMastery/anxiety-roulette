@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { type Dispatch, type SetStateAction } from "react";
 
 import { FinalDraw } from "./components/Music";
+import { Footer } from "./components/Footer";
 
 const resetTrigger = (
   setTrigger: Dispatch<SetStateAction<number | undefined>>
@@ -66,6 +67,7 @@ function App() {
           </button>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
